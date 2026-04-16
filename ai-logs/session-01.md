@@ -1,7 +1,7 @@
 # AI Session Log — 8x Creator App
 
 **Date:** 2026-04-16  
-**Tool:** Antigravity (Google DeepMind AI Coding Assistant)  
+**Tool:** Claude 3.5 Sonnet + Gemini 1.5 Pro via Antigravity (Multi-Model AI Suite)  
 **Assignment:** Founding Engineer Take-Home — React Native Creator App
 
 ---
