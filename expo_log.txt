@@ -1,0 +1,18 @@
+Starting project at /Users/mac/Documents/Work/8x/creator-app
+Starting Metro Bundler
+The following packages should be updated for best compatibility with the installed expo version:
+  expo-blur@14.1.5 - expected version: ~15.0.8
+  expo-linear-gradient@14.0.2 - expected version: ~15.0.8
+  react-native-safe-area-context@5.2.0 - expected version: ~5.6.0
+  react-native-screens@4.4.0 - expected version: ~4.16.0
+Your project may not work correctly until you install the expected versions of the packages.
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+Web Bundled 2704ms index.ts (524 modules)
+ LOG  [web] Logs will appear in the browser console
+Web ./index.ts ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 38ms index.ts (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web ./index.ts ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 32ms index.ts (1 module)
+ LOG  [web] Logs will appear in the browser console
