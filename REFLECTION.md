@@ -36,7 +36,7 @@ A React Native (Expo) creator app with four main capabilities:
 
 ## AI-Assisted Engineering Process
 
-To meet the 48-hour deadline while maintaining high engineering standards, I utilized **Claude 3.5 Sonnet + Gemini 1.5 Pro via Antigravity** as a high-velocity multi-model pair programming suite. My approach was to act as the **System Architect**, delegating the implementation of well-defined components while retaining full control over the structural integrity and domain logic.
+To meet the 48-hour deadline while maintaining high engineering standards, I utilized **Claude 4.6 Sonnet & Opus + Gemini 3.1 Pro via Antigravity** as a high-velocity multi-model pair programming suite. My approach was to act as the **System Architect**, delegating the implementation of well-defined components while retaining full control over the structural integrity and domain logic.
 
 **Strategic Delegation (AI):**
 - **Boilerplate & Scaffolding:** Rapid generation of initial Expo project structure and navigation shells.

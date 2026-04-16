@@ -1,7 +1,7 @@
 # AI Session Log — 8x Creator App
 
 **Date:** 2026-04-16  
-**Tool:** Claude 3.5 Sonnet + Gemini 1.5 Pro via Antigravity (Multi-Model AI Suite)  
+**Tool:** Claude 4.6 Sonnet & Opus + Gemini 3.1 Pro via Antigravity (Multi-Model AI Suite)  
 **Assignment:** Founding Engineer Take-Home — React Native Creator App
 
 ---
@@ -120,4 +120,4 @@ npx create-expo-app@latest creator-app --template blank-typescript --no-install
 - **Type Exhaustiveness**: Enforced strict safety even when dealing with complex nested navigators.
 
 **The Multi-Model Advantage:**
-By orchestrating **Claude 3.5 Sonnet** (for high-level logic/UX focus) and **Gemini 1.5 Pro** (for exhaustive document analysis and large-scale refactoring) through the Antigravity suite, I delivered a production-grade application in fraction of the standard lifecycle, while maintaining the technical oversight of a System Architect.
+By orchestrating **Claude 4.6 Sonnet & Opus** (for high-level recursive reasoning) and **Gemini 3.1 Pro** (for massive context ingestion and architectural refactoring) through the Antigravity suite, I delivered a production-grade application in fraction of the standard lifecycle, while maintaining the technical oversight of a System Architect.

@@ -11,15 +11,20 @@ A React Native (Expo) app for creators to browse brand campaigns, read briefs, w
 
 ## Tech Stack
 
-- [Expo](https://expo.dev/) ~54 + React Native 0.81
-- TypeScript
-- React Navigation (Native Stack + Bottom Tabs)
-- React Context for global state
-- Fully mocked data (no backend required)
+[Expo](https://expo.dev/) ~54 + React Native 0.81
+
+TypeScript
+
+* React Navigation (Native Stack + Bottom Tabs)
+
+React Context for global state
+
+Fully mocked data (no backend required)
 
 ## 📱 Testing & Review
 
 For the most accurate evaluation of the product's premium feel and touch-responsive interactions:
+
 - **Mobile Environment**: It is highly recommended to view the application in mobile screen dimensions (e.g., using the Chrome Device Mode at 392x844 or on a physical device).
 
 ## 🚀 Getting Started
@@ -66,6 +71,7 @@ creator-app/
 ## Submission Status States
 
 The app pre-seeds two submissions so all three status states are immediately visible on first launch:
+
 - ✅ **Approved** — Loom Coffee Co. submission
 - ❌ **Rejected** — Aether Skincare submission (with feedback)
 - ⏳ **Pending** — any new submission you make
