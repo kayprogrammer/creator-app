@@ -22,7 +22,7 @@ export type Campaign = {
   description: string;
   brief: string;
   requirements: string[];
-  exampleVideos: { url: string; thumbnail: string; caption: string }[];
+  exampleVideos: { url: any; thumbnail: string; caption: string }[];
   tags: string[];
   spotsLeft: number;
   totalCreators: number;
@@ -54,14 +54,14 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     exampleVideos: [
       {
-        url: 'https://www.tiktok.com/@loomcoffee/example1',
+        url: require('../../assets/videos/coffee.mp4'),
         thumbnail: 'https://picsum.photos/seed/coffee1/400/700',
         caption: 'Morning ritual by @sara.creates — 2.1M views',
       },
       {
-        url: 'https://www.instagram.com/reel/loomex2',
+        url: require('../../assets/videos/matcha.mp4'),
         thumbnail: 'https://picsum.photos/seed/coffee2/400/700',
-        caption: 'Cozy Sunday vibe by @jakemakes — 890K views',
+        caption: 'Matcha Monday by @jakemakes — 890K views',
       },
     ],
     tags: ['lifestyle', 'coffee', 'morning', 'wellness'],
@@ -93,9 +93,14 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     exampleVideos: [
       {
-        url: 'https://www.tiktok.com/@pulsefitness/example1',
+        url: require('../../assets/videos/workout.mp4'),
         thumbnail: 'https://picsum.photos/seed/fitness1/400/700',
         caption: 'Day 1 energy by @alex_lifts — 4.7M views',
+      },
+      {
+        url: require('../../assets/videos/stretch.mp4'),
+        thumbnail: 'https://picsum.photos/seed/fitness2/400/700',
+        caption: 'Recovery flow by @yoga_jen — 1.2M views',
       },
     ],
     tags: ['fitness', 'challenge', 'motivation', 'health'],
@@ -127,14 +132,9 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     exampleVideos: [
       {
-        url: 'https://www.tiktok.com/@aetherskin/example1',
+        url: require('../../assets/videos/skincare.mp4'),
         thumbnail: 'https://picsum.photos/seed/skin1/400/700',
         caption: 'Glow routine by @mia.beauty — 1.3M views',
-      },
-      {
-        url: 'https://www.instagram.com/reel/aether2',
-        thumbnail: 'https://picsum.photos/seed/skin2/400/700',
-        caption: 'No filter needed by @purebeauty — 560K views',
       },
     ],
     tags: ['skincare', 'beauty', 'glow', 'routine'],
@@ -166,14 +166,9 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     exampleVideos: [
       {
-        url: 'https://www.tiktok.com/@novaaudio/example1',
+        url: require('../../assets/videos/desk-setup.mp4'),
         thumbnail: 'https://picsum.photos/seed/tech1/400/700',
         caption: 'Focus mode by @dev.life — 3.2M views',
-      },
-      {
-        url: 'https://www.tiktok.com/@novaaudio/example2',
-        thumbnail: 'https://picsum.photos/seed/tech2/400/700',
-        caption: 'Commute vibes by @citywalks — 980K views',
       },
     ],
     tags: ['tech', 'audio', 'music', 'productivity'],

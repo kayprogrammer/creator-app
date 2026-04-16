@@ -83,11 +83,16 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bgCard,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
-    height: 80,
-    paddingTop: 8,
-    paddingBottom: 20,
+    height: 94, // Increased from 80
+    paddingTop: 10,
+    paddingBottom: 24, // Increased from 20 to ensure labels have enough room
   },
-  tabLabel: { fontSize: 11, fontWeight: '600', marginTop: 2 },
+  tabLabel: { 
+    fontSize: 11, 
+    fontWeight: '600', 
+    marginTop: 4, // Slightly more space between icon and label
+    marginBottom: 4,
+  },
   badge: {
     position: 'absolute',
     top: -4,

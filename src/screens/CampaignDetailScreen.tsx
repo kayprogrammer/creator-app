@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Video, ResizeMode } from 'expo-av';
 import {
   View,
   Text,
@@ -14,6 +15,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   StatusBar,
+  Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -32,13 +35,16 @@ function isValidVideoUrl(url: string): boolean {
 }
 
 export default function CampaignDetailScreen({ navigation, route }: Props) {
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const { campaignId } = route.params;
-  const campaign = CAMPAIGNS.find((c) => c.id === campaignId);
   const { addSubmission, getSubmissionByCampaign } = useSubmissions();
 
   const [submitModalVisible, setSubmitModalVisible] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
   const [urlError, setUrlError] = useState('');
+  const [fullscreenVideo, setFullscreenVideo] = useState<any | null>(null);
+
+  const campaign = CAMPAIGNS.find((c) => c.id === campaignId);
   const [activeTab, setActiveTab] = useState<'brief' | 'examples'>('brief');
 
   const submission = campaign ? getSubmissionByCampaign(campaign.id) : undefined;
@@ -175,7 +181,7 @@ export default function CampaignDetailScreen({ navigation, route }: Props) {
         {activeTab === 'brief' ? (
           <BriefTab campaign={campaign} />
         ) : (
-          <ExamplesTab campaign={campaign} />
+          <ExamplesTab campaign={campaign} onSelectVideo={(vid) => setFullscreenVideo(vid)} />
         )}
 
         <View style={{ height: 120 }} />
@@ -194,7 +200,7 @@ export default function CampaignDetailScreen({ navigation, route }: Props) {
         ) : (
           <TouchableOpacity
             style={styles.ctaButtonDisabled}
-            onPress={() => navigation.navigate('Submissions')}
+            onPress={() => navigation.navigate('Main', { screen: 'Submissions' })}
             activeOpacity={0.85}
           >
             <Text style={styles.ctaButtonDisabledText}>📊  View My Submission</Text>
@@ -249,6 +255,42 @@ export default function CampaignDetailScreen({ navigation, route }: Props) {
           </View>
         </KeyboardAvoidingView>
       </Modal>
+
+      {/* Full-screen Portrait Video Modal */}
+      <Modal
+        visible={!!fullscreenVideo}
+        animationType="fade"
+        transparent
+        onRequestClose={() => setFullscreenVideo(null)}
+      >
+        <View style={styles.fullVideoOverlay}>
+          <StatusBar barStyle="light-content" />
+          <TouchableOpacity
+            style={styles.closeFullVideo}
+            onPress={() => setFullscreenVideo(null)}
+          >
+            <Text style={styles.closeFullVideoText}>✕</Text>
+          </TouchableOpacity>
+
+          {fullscreenVideo && (
+            <View style={styles.videoContainer}>
+              <Video
+                source={typeof fullscreenVideo.url === 'number' ? fullscreenVideo.url : { uri: fullscreenVideo.url }}
+                style={styles.fullVideoPlayer}
+                videoStyle={{ width: '100%', height: '100%', objectFit: 'contain' } as any}
+                resizeMode={ResizeMode.CONTAIN}
+                useNativeControls
+                shouldPlay
+                isLooping
+              />
+            </View>
+          )}
+
+          <View style={styles.fullVideoInfo}>
+            <Text style={styles.fullVideoCaption}>{fullscreenVideo?.caption}</Text>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -294,7 +336,7 @@ function BriefTab({ campaign }: { campaign: any }) {
   );
 }
 
-function ExamplesTab({ campaign }: { campaign: any }) {
+function ExamplesTab({ campaign, onSelectVideo }: { campaign: any; onSelectVideo: (vid: any) => void }) {
   return (
     <View style={styles.examplesContainer}>
       <Text style={styles.sectionTitle}>Example Videos</Text>
@@ -303,8 +345,8 @@ function ExamplesTab({ campaign }: { campaign: any }) {
         <TouchableOpacity
           key={i}
           style={styles.exampleCard}
-          onPress={() => Linking.openURL(vid.url).catch(() => {})}
-          activeOpacity={0.85}
+          onPress={() => onSelectVideo(vid)}
+          activeOpacity={0.9}
         >
           <Image
             source={{ uri: vid.thumbnail }}
@@ -316,9 +358,13 @@ function ExamplesTab({ campaign }: { campaign: any }) {
           </View>
           <View style={styles.exampleInfo}>
             <Text style={styles.exampleCaption}>{vid.caption}</Text>
-            <Text style={styles.exampleUrl} numberOfLines={1}>{vid.url}</Text>
+            {typeof vid.url === 'string' ? (
+              <Text style={styles.exampleUrl} numberOfLines={1}>{vid.url} ↗</Text>
+            ) : (
+              <Text style={styles.exampleUrl}>Local Example Asset</Text>
+            )}
             <View style={styles.exampleExternalBtn}>
-              <Text style={styles.exampleExternalText}>Open Video ↗</Text>
+              <Text style={styles.exampleExternalText}>Tap to Watch</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -615,4 +661,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalCancelText: { fontSize: 15, color: COLORS.textSecondary },
+  fullVideoOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.95)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  closeFullVideo: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    zIndex: 100,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeFullVideoText: { color: '#fff', fontSize: 20, fontWeight: '600' },
+  videoContainer: {
+    flex: 1,
+    width: '100%',
+    maxWidth: '95%',
+    maxHeight: '85%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  fullVideoPlayer: {
+    width: '100%',
+    height: '100%',
+  },
+  fullVideoInfo: {
+    position: 'absolute',
+    bottom: 50,
+    left: 20,
+    right: 20,
+    padding: SPACING.md,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    borderRadius: RADIUS.md,
+  },
+  fullVideoCaption: { color: '#fff', fontSize: 15, fontWeight: '600' },
 });

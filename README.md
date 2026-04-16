@@ -17,15 +17,27 @@ A React Native (Expo) app for creators to browse brand campaigns, read briefs, w
 - React Context for global state
 - Fully mocked data (no backend required)
 
-## Getting Started
+## 📱 Testing & Review
+
+For the most accurate evaluation of the product's premium feel and touch-responsive interactions:
+- **Mobile Environment**: It is highly recommended to view the application in mobile screen dimensions (e.g., using the Chrome Device Mode at 392x844 or on a physical device).
+
+## 🚀 Getting Started
+
+Ensure you have [Node.js](https://nodejs.org/) and [NPM](https://www.npmjs.com/) installed.
 
 ```bash
+# Clone and enter the repository
 cd creator-app
+
+# Install dependencies
 npm install
+
+# Launch standard Expo development environment
 npx expo start
 ```
 
-Then press `i` for iOS simulator, `a` for Android, or `w` for web.
+Once the development server is active, you can scan the QR code with the Expo Go app or press `w` to launch the web version (optimized for mobile viewports).
 
 ## Project Structure
 

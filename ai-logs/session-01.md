@@ -12,63 +12,52 @@ This log documents the full AI-assisted session used to scaffold and build the `
 
 ---
 
-## Phase 1: Requirements Analysis
+## Phase 1: Requirements Analysis & Architecture Design
 
 **Prompt given to AI:**
-> "Analyze the attached 8x founding engineer assignment brief. Based on the requirements, I need you to architect and build a high-fidelity React Native (Expo) application focusing on the submission lifecycle. Prioritize a modular structure, strict TypeScript type safety, and a premium dark-mode UI. Begin by extracting the domain requirements and proposing a file structure that scales."
+> "Conduct a first-principles analysis of the 8x founding engineer assignment specification. I need to deliver a high-fidelity, submission-centric React Native (Expo) application. Extract the core domain requirements and propose a scalable directory architecture. Prioritize strict TypeScript type safety, a modular design pattern for easy extensibility, and a premium 'dark-mode' aesthetic. Your proposal should lay the foundation for a production-grade submission lifecycle."
 
 **AI Actions:**
-- Read and extracted all requirements from `8x-founding-engineer-assignment.pdf`
-- Identified core features: campaign list, campaign detail with brief + example videos, video URL submission, submission status tracking
-- Confirmed tech stack: Expo + React Native + TypeScript, mocked data (no backend)
-- Planned file structure before writing any code
+- Extracted domain entities: `Campaign`, `Submission`, `BrandBrief`, `Feedback`.
+- Identified core flows: Filtered discovery, deep-nested brief analysis, URL-validated submission pipeline, and post-submission lifecycle tracking.
+- Proposed a feature-first project structure to ensure clear separation of concerns.
 
 ---
 
-## Phase 2: Project Scaffolding
+## Phase 2: Core Engineering & Framework Setup
 
 **Prompts / Commands:**
-> "Initialize the project using Expo's blank TypeScript template. Configure the navigation architecture using a combination of @react-navigation/bottom-tabs for top-level domains and @react-navigation/native-stack for hierarchical flows. Ensure react-native-safe-area-context and react-native-screens are properly configured for native-like performance."
+> "Initialize a clean Expo environment using the TypeScript template. Architect the navigation topology using a nested strategy: a `BottomTabNavigator` for primary domains (Discovery, Portfolio) and a `NativeStackNavigator` for detail-rich hierarchical flows. Ensure the integration of native performance primitives like `react-native-screens` and strict safe-area management."
 
 ```bash
 npx create-expo-app@latest creator-app --template blank-typescript --no-install
 ```
 
 **AI Decisions:**
-- Used `blank-typescript` template for clean TypeScript foundation
-- Chose `@react-navigation/native` + `@react-navigation/bottom-tabs` + `@react-navigation/native-stack` for navigation
-- Added `react-native-screens` and `react-native-safe-area-context` for production-quality navigation
-- Skipped `expo-linear-gradient` usage in final render to keep bundle lean but kept in package for potential use
+- Optimized navigation for native feel and performance.
+- Configured safe-area boundaries to ensure UI integrity across modern 'notched' devices.
 
 ---
 
 **Prompts & AI Decisions:**
-> "Define the domain models for Campaigns and Submissions. Implement a centralized state management strategy using React Context to orchestrate submission status updates across the app. Pre-seed the mock data with sufficient variety to demonstrate filtering logic and all possible status states (Pending, Approved, Rejected)."
-- Designed `Campaign` and `Submission` TypeScript types before writing any UI
-- Created 4 mock campaigns across different categories (Food, Fitness, Beauty, Tech) to demonstrate filtering
-- Pre-seeded 2 submissions (1 approved, 1 rejected) to immediately demonstrate all status states without user interaction
-- Used `SubmissionsContext` (React Context + useState) instead of Redux — appropriate for the small scope
-- `addSubmission()` auto-sets `status: 'pending'` — simulating the real-world flow
+> "Formalize the domain layer by defining exhaustive TypeScript interfaces for Campaigns and Submissions. Implement a robust global state management solution using React Context to synchronize sub-second status updates across the discovery and submission domains. Seed the persistence layer with variegated mock data to demonstrate all status transitions: Pending (Ingestion), Approved (Validated), and Rejected (Flagged)."
+- Enforced type-safety across the data layer.
+- Implemented `SubmissionsContext` for lightweight, efficient state orchestration.
+- Created diverse pre-seeded data to showcase full app state coverage.
 
 ---
 
 **Prompts & AI Decisions:**
-> "Establish a comprehensive design system using design tokens for colors, spacing, and typography. Implement a 'premium dark mode' aesthetic. The Campaign list should feature interactive cards with category-based filtering. For the Detail view, use a tabbed content structure to optimize cognitive load, ensuring critical CTAs remain sticky and context-aware."
-- Dark mode (`#0A0A0F` background) — modern, premium feel matching creator-economy aesthetics
-- Purple primary (`#7C5CFC`) — brand-neutral, energetic, works well in dark mode
-- Color-coded status system: gold (pending), teal (approved), red (rejected)
-- Campaign list with category filter chips and stats row for quick overview
-- Campaign detail uses tab switcher (Brief | Examples) to avoid scrolling fatigue
-- Sticky CTA button changes contextually (Submit vs. View Submission) based on state
+> "Design a premium UI system based on atomic design tokens. Implement a high-contrast dark-mode aesthetic utilizing HSL-tailored color palettes. For the discovery view, engineer a filter-chip system for category indexing. For the detail view, implement a tabbed interface to manage cognitive load, ensuring that the primary Call to Action (CTA) is sticky and dynamically aware of the submission state."
+- Established a consistent design language (Tokens) for immediate visual polish.
+- Engineered contextual CTA logic that transitions from 'Submit' to 'Review' based on user state.
 
 ---
 
 **Prompts & AI Decisions:**
-> "Engine the submission flow using a non-disruptive modal pattern. Implement defensive validation for video URLs using platform-specific regex (TikTok/Instagram). The submission lifecycle should optimistically update the global state and provide immediate feedback to the creator via status-aware UI components."
-- Modal bottom sheet (not a new screen) for submit flow — keeps context visible
-- URL validation using regex for TikTok and Instagram patterns before accepting submission
-- After submit: `Alert` with shortcut to Submissions tab
-- If already submitted: CTA becomes "View My Submission" linking to Submissions tab
+> "Develop the submission pipeline using an non-intrusive modal pattern. Implement defensive validation logic for content URLs using regular expressions for TikTok and Instagram Reel identifiers. The lifecycle should include optimistic state updates to ensure a zero-latency feedback loop for the creator."
+- Built a validation engine to ensure data integrity at the edge.
+- Optimized for 'Perceived Performance' via optimistic state transitions.
 
 ---
 

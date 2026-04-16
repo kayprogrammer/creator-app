@@ -68,30 +68,32 @@ export default function CampaignListScreen({ navigation }: Props) {
         </View>
 
         {/* Filter chips */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.filterScroll}
-          contentContainerStyle={styles.filterContent}
-        >
-          {CATEGORIES.map((cat) => (
-            <TouchableOpacity
-              key={cat}
-              style={[styles.filterChip, activeFilter === cat && styles.filterChipActive]}
-              onPress={() => setActiveFilter(cat)}
-              activeOpacity={0.7}
-            >
-              <Text
-                style={[
-                  styles.filterChipText,
-                  activeFilter === cat && styles.filterChipTextActive,
-                ]}
+        <View style={styles.filterContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.filterScroll}
+            contentContainerStyle={styles.filterContent}
+          >
+            {CATEGORIES.map((cat) => (
+              <TouchableOpacity
+                key={cat}
+                style={[styles.filterChip, activeFilter === cat && styles.filterChipActive]}
+                onPress={() => setActiveFilter(cat)}
+                activeOpacity={0.7}
               >
-                {cat}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+                <Text
+                  style={[
+                    styles.filterChipText,
+                    activeFilter === cat && styles.filterChipTextActive,
+                  ]}
+                >
+                  {cat}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
 
         {/* Campaign list */}
         <FlatList
@@ -240,19 +242,26 @@ const styles = StyleSheet.create({
   statCardMid: { borderColor: COLORS.primary + '60' },
   statNumber: { fontSize: 22, fontWeight: '700', color: COLORS.primary, marginBottom: 2 },
   statLabel: { fontSize: 11, color: COLORS.textSecondary, textTransform: 'uppercase', letterSpacing: 0.5 },
-  filterScroll: { maxHeight: 48 },
+  filterContainer: {
+    height: 50,
+    marginBottom: SPACING.md,
+  },
+  filterScroll: {
+    flex: 1,
+  },
   filterContent: {
     paddingHorizontal: SPACING.md,
-    gap: SPACING.sm,
     alignItems: 'center',
+    flexDirection: 'row',
   },
   filterChip: {
-    paddingHorizontal: 14,
-    paddingVertical: 7,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
     borderRadius: RADIUS.full,
     backgroundColor: COLORS.bgCard,
     borderWidth: 1,
     borderColor: COLORS.border,
+    marginRight: SPACING.sm, // Using marginRight instead of gap for better web compat
   },
   filterChipActive: {
     backgroundColor: COLORS.primary,

@@ -1,5 +1,7 @@
+import { NavigatorScreenParams } from '@react-navigation/native';
+
 export type RootStackParamList = {
-  Main: undefined;
+  Main: NavigatorScreenParams<BottomTabParamList>;
   CampaignList: undefined;
   CampaignDetail: { campaignId: string };
   Submissions: undefined;
